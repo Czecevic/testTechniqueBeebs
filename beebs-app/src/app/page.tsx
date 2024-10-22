@@ -10,7 +10,7 @@ export default function HomePage() {
       </h1>
       <p className="text-lg mb-6">Découvrez les événements à venir à Paris.</p>
       <Link href="/events">
-        <button className="bg-blue-500 text-white px-6 py-2 rounded-md text-lg hover:bg-blue-600 transition-colors">
+        <button className="bg-emerald-900 text-white px-6 py-2 rounded-md text-lg hover:bg-emerald-50 transition-colors hover:text-emerald-950">
           Voir les événements
         </button>
       </Link>

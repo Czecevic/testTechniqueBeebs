@@ -1,20 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
-import { EventResult } from "../utils/fetchEvents";
+import { format, parseISO } from "date-fns";
+import { fr } from "date-fns/locale";
+import Link from "next/link";
+// mui
 import Card from "@mui/material/Card";
+import { Dialog, DialogTitle } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { format, parseISO } from "date-fns";
-import { fr } from "date-fns/locale";
-import { Dialog, DialogTitle } from "@mui/material";
-import Link from "next/link";
-
-interface EventCardProps {
-  event: EventResult;
-}
+// local
+import { EventCardProps } from "../interface";
 
 const formatDate = (date: string) => {
   return format(parseISO(date), "dd/MM/yyyy", { locale: fr });
@@ -24,9 +21,11 @@ export const EventCard: React.FunctionComponent<EventCardProps> = ({
   event,
 }) => {
   const [expanded, setExpanded] = useState<boolean>(false);
+
   const handleCardClick = () => {
     setExpanded(!expanded);
   };
+
   const reformatDesc = (desc: string) => {
     return desc.replace(/<[^>]*>/g, "");
   };
@@ -54,19 +53,14 @@ export const EventCard: React.FunctionComponent<EventCardProps> = ({
         <Typography gutterBottom variant="subtitle1" component="div">
           {event.title}
         </Typography>
-        <div className="flex gap-2">
-          <Typography variant="h6" color="text.secondary">
-            {formatDate(event.date_start)}
-          </Typography>
-          <Typography variant="h6" color="text.secondary">
-            -
-          </Typography>
-          <Typography variant="h6" color="text.secondary">
-            {formatDate(event.date_end)}
-          </Typography>
-        </div>
+        <Typography variant="h6" color="text.secondary">
+          {formatDate(event.date_start)} - {formatDate(event.date_end)}
+        </Typography>
         <Typography variant="body2" color="text.secondary">
-          {event.address_name}
+          {event.address_name ? event.address_name : event.address_text}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {(event.tags as unknown as string[]).join(" , ")}
         </Typography>
         {expanded && (
           <Dialog onClose={handleCardClick} open={expanded}>
@@ -84,8 +78,6 @@ export const EventCard: React.FunctionComponent<EventCardProps> = ({
                   </Link>
                 </Button>
               )}
-            </CardActions>
-            <CardActions>
               <Button onClick={handleCardClick}>Fermer</Button>
             </CardActions>
           </Dialog>
