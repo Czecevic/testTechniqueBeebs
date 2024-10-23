@@ -1,4 +1,4 @@
-import { EventResult } from "../interface";
+import { EventResult } from "@/app/interface";
 
 export const fetchEvent = async (): Promise<EventResult[]> => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL + "2025%22";

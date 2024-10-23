@@ -33,7 +33,7 @@ export const EventCard: React.FunctionComponent<EventCardProps> = ({
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 350,
         transition: "transform 0.3s",
         "&:hover": {
           transform: "scale(1.05)",

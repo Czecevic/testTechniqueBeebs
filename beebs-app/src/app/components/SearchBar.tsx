@@ -8,19 +8,18 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Paris Event</h1>
+    <div className="flex items-center justify-between w-full">
       <div
-        className={`flex items-center rounded-full transition-all duration-300 ease-in-out ${
-          isFocused ? "w-3/4" : "w-1/4"
+        className={`flex items-center rounded-full bg-slate-700 m-5 mx-20 transition-all duration-300 ease-in-out ${
+          isFocused ? "w-full" : "w-1/4"
         }`}
       >
-        <button className="p-4 bg-transparent">
+        <button className="p-4 bg-transparent" aria-label="SearchIcon">
           <SearchIcon />
         </button>
         <input
           type="text"
-          placeholder="Rechercher un évenement"
+          placeholder="Rechercher un évènement"
           className="w-full p-4 bg-transparent outline-none transition-all duration-300 ease-in-out"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

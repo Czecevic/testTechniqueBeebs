@@ -16,4 +16,6 @@ export interface EventTagsProps {
   selectedTags: string[];
   handleTagChange: (tag: string) => void;
   openSideBar: boolean;
+  setSortBy: (sort: string) => void;
+  setSortOrder: (order: string) => void;
 }
