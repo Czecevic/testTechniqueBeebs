@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { fetchEvent } from "@/app/utils/fetchEvents";
-import { EventResult } from "@/app/interface";
+import { getEvent } from "@/app/actions/getEvents";
+import { EventResult } from "@/types/interface";
 
 export const useEvents = (
   searchTerm: string,
@@ -17,7 +17,7 @@ export const useEvents = (
   useEffect(() => {
     const getEvents = async () => {
       try {
-        const eventsData = await fetchEvent();
+        const eventsData = await getEvent();
         setEvents(eventsData);
         setAllTags(
           Array.from(new Set(eventsData.flatMap((event) => event.tags)))
