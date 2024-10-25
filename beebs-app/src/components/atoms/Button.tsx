@@ -4,11 +4,9 @@ import { ButtonProps } from "@/types/interface";
 
 export const CustomButton = ({ label, onClick, link }: ButtonProps) => {
   return link ? (
-    <Button>
-      <Link href={link} target="_blank">
-        {label}
-      </Link>
-    </Button>
+    <Link href={link} target="_blank">
+      <Button>{label}</Button>
+    </Link>
   ) : (
     <Button onClick={onClick}>{label}</Button>
   );

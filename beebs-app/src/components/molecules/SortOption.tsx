@@ -7,8 +7,8 @@ export const SortOptions = ({
   handleSortChange,
 }: SortOptionProps) => {
   return (
-    <FormControl>
-      <FormLabel id="SortBy" sx={{ color: "white" }}>
+    <FormControl sx={{ width: "100%", display: "flex", alignItems: "center" }}>
+      <FormLabel id="SortBy" sx={{ color: "black" }}>
         Ranger par :
       </FormLabel>
       <RadioGroup

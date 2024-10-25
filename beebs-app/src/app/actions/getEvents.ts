@@ -1,8 +1,17 @@
 "use serveur";
 
 import { EventResult } from "@/types/interface";
+import NodeCache from "node-cache";
+
+const cache = new NodeCache({ stdTTL: 300 });
 
 export const getEvent = async (): Promise<EventResult[]> => {
+  const cachedData = cache.get("events");
+  if (cachedData) {
+    console.log("Using cached data");
+    return cachedData as EventResult[];
+  }
+
   const apiUrl = process.env.NEXT_PUBLIC_API_URL + "2025%22";
 
   if (!apiUrl) throw new Error("API URL not defined");
@@ -24,6 +33,8 @@ export const getEvent = async (): Promise<EventResult[]> => {
         index === self.findIndex((e) => e.title.split(":")[0] === titleSplit)
       );
     });
+
+  cache.set("events", result);
 
   return result;
 };

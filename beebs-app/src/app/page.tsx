@@ -6,8 +6,10 @@ import { SearchBar } from "@/components/organisms/SearchBar";
 import { EventTags } from "@/components/organisms/EventTags";
 import { EventCard } from "@/components/organisms/EventCard";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import { CircularProgress, Fab } from "@mui/material";
+import { Fab } from "@mui/material";
 import { SVGLogo } from "@/components/atoms/SVGLogo";
+import { Loading } from "@/components/organisms/Loading";
+import { Error } from "@/components/organisms/Error";
 
 export default function EventsPage() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -17,7 +19,7 @@ export default function EventsPage() {
   const [sortOrder, setSortOrder] = useState<string>("asc");
 
   // Utilisation du hook pour récupérer les événements filtrés et trier
-  const { filteredEvents, loading, errorMessage, allTags } = useEvents(
+  const { filteredEvents, errorMessage, loading, allTags } = useEvents(
     searchTerm,
     selectedTags,
     sortBy,
@@ -30,28 +32,18 @@ export default function EventsPage() {
     );
   };
 
-  // Affichage de l'état "loading"
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center w-full h-screen">
-        <CircularProgress color="inherit" />
-      </div>
-    );
-  }
-
   // Gestion des erreurs
   if (errorMessage) {
-    return (
-      <div className="flex items-center justify-center flex-col h-screen w-full text-3xl">
-        <h1>Erreur {errorMessage}</h1>
-        <p> Nous n&apos;avons pas pu récuperer la page demander</p>
-      </div>
-    );
+    return <Error errorMessage={errorMessage} />;
+  }
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (
     <div>
-      <nav className="flex w-full items-center">
+      <nav className="flex w-full items-center flex-col md:flex-row">
         {/* Barre de recherche */}
         <SVGLogo />
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />{" "}
@@ -60,7 +52,7 @@ export default function EventsPage() {
       <div className="relative">
         {/* Barre latérale des filtres et des options de tri */}
         <div
-          className={`fixed bottom-0 left-0 w-full h-screen p-4 transition-transform bg-slate-900 ${
+          className={`fixed bottom-0 left-0 w-full h-screen p-4 transition-transform bg-slate-100 text-black ${
             openSideBar ? "-translate-y-0" : "translate-y-full"
           }`}
         >
@@ -77,11 +69,11 @@ export default function EventsPage() {
         {/* Liste des événements */}
         <div className="flex flex-wrap justify-around items-stretch">
           {filteredEvents.length === 0 ? (
-            <p className="text-center text-lg">Aucun résultat trouvé.</p>
+            <Loading />
           ) : (
             filteredEvents.map((event, index) => (
               <div
-                className="flex-1 basis-1 md:basis-1/2 lg:basis-1/3 flex justify-center p-5"
+                className="flex-1 basis-5/6 md:basis-1/2 lg:basis-1/3 flex justify-center p-5"
                 key={index}
               >
                 <EventCard event={event} />
@@ -94,7 +86,12 @@ export default function EventsPage() {
         <Fab
           aria-label="filter"
           onClick={() => setOpenSideBar(!openSideBar)}
-          sx={{ position: "fixed", bottom: "16px", left: "16px", zIndex: "1" }}
+          sx={{
+            position: "fixed",
+            bottom: { xs: "16px", md: "24px" },
+            left: { xs: "16px", md: "24px" },
+            zIndex: "1",
+          }}
         >
           <FilterAltIcon />
         </Fab>

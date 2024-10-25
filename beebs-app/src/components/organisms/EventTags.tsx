@@ -1,16 +1,16 @@
-import { FunctionComponent, useState } from "react";
+import { useState } from "react";
 import { EventTagsProps } from "@/types/interface";
 import { SortOptions } from "../molecules/SortOption";
 import { TagSelector } from "../molecules/TagSelector";
 
-export const EventTags: FunctionComponent<EventTagsProps> = ({
+export const EventTags = ({
   allTags,
   selectedTags,
   handleTagChange,
   openSideBar,
   setSortBy,
   setSortOrder,
-}) => {
+}: EventTagsProps) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
 
   const handleSortChange = (valueSort: string) => {
@@ -35,7 +35,7 @@ export const EventTags: FunctionComponent<EventTagsProps> = ({
   return (
     <div>
       {openSideBar && (
-        <div className="flex flex-wrap m-10">
+        <div className="m-10">
           <SortOptions
             selectedOption={selectedOption}
             handleSortChange={handleSortChange}
