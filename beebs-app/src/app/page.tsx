@@ -18,7 +18,7 @@ export default function EventsPage() {
   const [sortBy, setSortBy] = useState<string>("name");
   const [sortOrder, setSortOrder] = useState<string>("asc");
 
-  // Utilisation du hook pour récupérer les événements filtrés et trier
+  // use hook to retrieve filtered and sorted events
   const { filteredEvents, errorMessage, loading, allTags } = useEvents(
     searchTerm,
     selectedTags,
@@ -32,7 +32,7 @@ export default function EventsPage() {
     );
   };
 
-  // Gestion des erreurs
+  // Error Management
   if (errorMessage) {
     return <Error errorMessage={errorMessage} />;
   }
@@ -44,13 +44,13 @@ export default function EventsPage() {
   return (
     <div>
       <nav className="flex w-full items-center flex-col md:flex-row">
-        {/* Barre de recherche */}
+        {/* Search Bar */}
         <SVGLogo />
         <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />{" "}
       </nav>
 
       <div className="relative">
-        {/* Barre latérale des filtres et des options de tri */}
+        {/* icons for filters and sorting options */}
         <div
           className={`fixed bottom-0 left-0 w-full h-screen p-4 transition-transform bg-slate-100 text-black ${
             openSideBar ? "-translate-y-0" : "translate-y-full"
@@ -66,7 +66,7 @@ export default function EventsPage() {
           />
         </div>
 
-        {/* Liste des événements */}
+        {/* all events */}
         <div className="flex flex-wrap justify-around items-stretch">
           {filteredEvents.length === 0 ? (
             <Loading />
@@ -82,7 +82,7 @@ export default function EventsPage() {
           )}
         </div>
 
-        {/* Bouton flottant pour ouvrir/fermer la barre latérale */}
+        {/* Fab Button for open / close filters */}
         <Fab
           aria-label="filter"
           onClick={() => setOpenSideBar(!openSideBar)}

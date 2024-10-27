@@ -12,7 +12,6 @@ import {
 import { formatDate } from "@/utils/dateHelpers";
 import { EventDescription } from "../molecules/EventDescription";
 import { CustomButton } from "../atoms/Button";
-import Image from "next/image";
 
 export const EventCard = ({ event }: EventCardProps) => {
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -23,6 +22,7 @@ export const EventCard = ({ event }: EventCardProps) => {
 
   return (
     <>
+      {/* individual card */}
       <Card
         sx={{
           maxWidth: 300,

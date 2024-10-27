@@ -25,7 +25,6 @@ export const EventTags = ({
     } else if (valueSort === "nameAZ") {
       setSortBy("name");
       setSortOrder("asc");
-      // Tri par date de début
     } else if (valueSort === "nameZA") {
       setSortBy("name");
       setSortOrder("desc");

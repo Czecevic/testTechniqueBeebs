@@ -3,15 +3,18 @@
 import { EventResult } from "@/types/interface";
 import NodeCache from "node-cache";
 
+// Initalize cahce with 5-minute TTL
 const cache = new NodeCache({ stdTTL: 300 });
 
 export const getEvent = async (): Promise<EventResult[]> => {
+  // Retrun cached events if available
   const cachedData = cache.get("events");
   if (cachedData) {
     console.log("Using cached data");
     return cachedData as EventResult[];
   }
 
+  // Fetch events from API
   const apiUrl = process.env.NEXT_PUBLIC_API_URL + "2025%22";
 
   if (!apiUrl) throw new Error("API URL not defined");
@@ -26,7 +29,7 @@ export const getEvent = async (): Promise<EventResult[]> => {
     .map((result: EventResult) => ({
       ...result,
     }))
-    // remove duplicates based on title and date (for events with same name, date, and location)
+    // Filter out events with duplicate titles
     .filter((event: EventResult, index: number, self: EventResult[]) => {
       const titleSplit = event.title.split(":")[0];
       return (
@@ -34,6 +37,7 @@ export const getEvent = async (): Promise<EventResult[]> => {
       );
     });
 
+  // Cache the filtered events
   cache.set("events", result);
 
   return result;

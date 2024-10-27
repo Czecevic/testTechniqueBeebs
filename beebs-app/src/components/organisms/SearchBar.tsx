@@ -1,11 +1,7 @@
-import { FunctionComponent } from "react";
 import { SearchBarProps } from "@/types/interface";
 import SearchIcon from "@mui/icons-material/Search";
 
-export const SearchBar: FunctionComponent<SearchBarProps> = ({
-  searchTerm,
-  setSearchTerm,
-}) => {
+export const SearchBar = ({ searchTerm, setSearchTerm }: SearchBarProps) => {
   return (
     <div className="flex items-center justify-between w-full">
       <div className="flex items-center rounded-full bg-slate-700 m-5 lg:mx-20 mx-5 w-full">
