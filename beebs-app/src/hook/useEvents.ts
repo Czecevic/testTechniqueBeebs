@@ -36,15 +36,17 @@ export const useEvents = (
         );
       return matchSearchTerm && matchTags;
     })
-    .sort((a, b) => {
+    .sort((newEvent, oldEvent) => {
       if (sortBy === "name") {
         return sortOrder === "asc"
-          ? a.title.localeCompare(b.title)
-          : b.title.localeCompare(a.title);
+          ? newEvent.title.localeCompare(oldEvent.title)
+          : oldEvent.title.localeCompare(newEvent.title);
       } else if (sortBy === "date") {
         return sortOrder === "asc"
-          ? new Date(a.date_start).getTime() - new Date(b.date_start).getTime()
-          : new Date(b.date_start).getTime() - new Date(a.date_start).getTime();
+          ? new Date(newEvent.date_start).getTime() -
+              new Date(oldEvent.date_start).getTime()
+          : new Date(oldEvent.date_start).getTime() -
+              new Date(newEvent.date_start).getTime();
       }
       return 0;
     });
