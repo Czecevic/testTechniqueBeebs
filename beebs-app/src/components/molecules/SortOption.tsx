@@ -24,7 +24,7 @@ export const SortOptions = ({
           onChange={() => handleSortChange("nameAZ")}
         />
         <RadioButton
-          label="odre alphabétique croissant (Z - A)"
+          label="odre alphabétique décroissant (Z - A)"
           value="nameZA"
           checked={selectedOption === "nameZA"}
           onChange={() => handleSortChange("nameZA")}
